@@ -3,41 +3,35 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
 using Shared.Materials;
+using Console = System.Console;
 
 namespace Client.Materials
 {
 	public partial class Index
 	{
         // TODO: Vraag 5 Filter
-        [Inject] public NavigationManager NavigationManager { get; set; } = default!;
-        [Parameter, SupplyParameterFromQuery] public string Search { get; set; }
-        private string _search;
-        
         private IEnumerable<MaterialDto.Index> materials;
+        private string _search;
+        [Parameter, SupplyParameterFromQuery] public string? Searchterm { get; set; }
         [Inject] public IMaterialService MaterialService { get; set; }
-        
+        [Inject] public NavigationManager NavigationManager { get; set; } = default!;
         // TODO: Vraag 5 Filter
         protected override async Task OnParametersSetAsync()
         {
             await GetMaterialsAsync();
         }
-        // protected override Task OnInitializedAsync()
-        // {
-        //     return GetMaterialsAsync();
-        // }
 
         private async Task GetMaterialsAsync()
         {
-            materials = await MaterialService.GetIndexAsync(null);
-            // TODO: Vraag 5 Filter
-            materials = await MaterialService.GetIndexAsync(_search);
+            materials = await MaterialService.GetIndexAsync(Searchterm);
         }
-        
+
         // TODO: Vraag 5 Filter
-        private void SearchMaterialsAsync()
+        private void FilterMaterials()
         {
             Dictionary<string, object?> parameters = new();
-            parameters.Add(nameof(Search), _search);
+            parameters.Add(nameof(Searchterm), _search);
+            Console.WriteLine(_search);
             var uri = NavigationManager.GetUriWithQueryParameters(parameters);
             NavigationManager.NavigateTo(uri);
         }

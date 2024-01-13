@@ -26,10 +26,13 @@ namespace Domain.Materials
 
         public void Borrow(string student)
         {
+            var events = new Event(Guard.Against.NullOrWhiteSpace(student, nameof(student)), Event.ActionType.Borrow);
             if (OutOfStock)
-                throw new ApplicationException("Material is already borrowed");
+            {
+                throw new ApplicationException("Already borrowed");
+            }
             InStock = false;
-            history.Add(new Event(student, Event.ActionType.Borrow));
+            history.Add(events);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using System.Web;
 using Shared.Materials;
 
 namespace Client.Materials
@@ -10,7 +11,7 @@ namespace Client.Materials
     public class MaterialService : IMaterialService
     {
         private readonly HttpClient http;
-        private const string endpoint = "api/material";
+        private const string endpoint = "api/material/";
 
         public MaterialService(HttpClient http)
         {
@@ -24,7 +25,7 @@ namespace Client.Materials
 
         public async Task<IEnumerable<MaterialDto.Index>> GetIndexAsync(string searchTerm)
         {
-            var materials = await http.GetFromJsonAsync<IEnumerable<MaterialDto.Index>>($"{endpoint}?Search={searchTerm}");
+            var materials = await http.GetFromJsonAsync<IEnumerable<MaterialDto.Index>>($"{endpoint}?search={searchTerm}");
             return materials;
         }
     }

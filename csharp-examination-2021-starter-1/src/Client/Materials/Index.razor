@@ -3,15 +3,17 @@
 <div class="is-flex is-flex-direction-row-reverse">
     <div class="field has-addons">
         <div class="control">
-            <input @bind="_search" class="input is-one-third" type="search" placeholder="Search...">
+            <input class="input is-one-third" @bind="_search" type="text" placeholder="Search...">
         </div>
         <div class="control">
-            <button onclick="@SearchMaterialsAsync"  class="button is-info">Search</button>
+            <button class="button is-info" @onclick="FilterMaterials">Search</button>
         </div>
         <AuthorizeView Roles="Administrator">
+            <Authorized>
             <div class="control">
                 <a class="button is-primary" href="material/create">Create</a>
             </div>
+            </Authorized>
         </AuthorizeView>
     </div>
 </div>

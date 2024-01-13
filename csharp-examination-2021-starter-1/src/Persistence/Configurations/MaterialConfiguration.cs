@@ -9,16 +9,11 @@ namespace Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Material> builder)
         {
-            builder.ToTable("Material");
-            builder.Property(m => m.Name).IsRequired().HasMaxLength(150);
-            builder.HasIndex(m => m.Name).IsUnique();
-
-            builder.Property(m => m.Description).HasMaxLength(1000);
-            
-            builder.HasMany(x => x.History)
-                .WithOne()
-                .IsRequired()
-                .OnDelete(DeleteBehavior.Cascade);
+            builder.HasIndex(x => x.Name)
+                .IsUnique();
+            builder.Property(x => x.Name).IsRequired().HasMaxLength(250);
+            builder.Property(x => x.Description).HasMaxLength(1000);
+            builder.HasMany(x => x.History).WithOne().IsRequired().OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

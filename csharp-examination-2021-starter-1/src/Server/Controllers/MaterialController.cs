@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿﻿using System;
+ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Materials;
@@ -19,12 +19,11 @@ namespace Server.Controllers
 
         // TODO: vraag 5 Filter
         [HttpGet]
-        public Task<IEnumerable<MaterialDto.Index>> GetIndex(string Search)
+        public Task<IEnumerable<MaterialDto.Index>> GetIndex(string search)
         {
-            return materialService.GetIndexAsync(Search);
+            return materialService.GetIndexAsync(search);
         }
-        
-        
+
         [HttpPost]
         public Task<int> CreateAsync([FromBody] MaterialDto.Create material)
         {

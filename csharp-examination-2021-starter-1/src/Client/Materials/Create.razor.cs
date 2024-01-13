@@ -7,19 +7,17 @@ using Shared.Materials;
 namespace Client.Materials
 {
 	public partial class Create
-	{
-		[Inject] public NavigationManager NavigationManager { get; set; }
-		[Inject] public IMaterialService Service { get; set; }
-		[Inject] public IToastService ToastService { get; set; }
-        private MaterialDto.Create _new = new();
+    {
+        private MaterialDto.Create material = new();
+        [Inject] public IMaterialService MaterialService { get; set; }
+        [Inject] public  IToastService toastService { get; set; }
+        [Inject] public NavigationManager NavigationManager { get; set; }
+        
         private async Task SubmitForm()
         {
-	        var response = await Service.CreateAsync(_new);
-	        if (response > 0)
-	        {
-		        NavigationManager.NavigateTo("/");
-		        ToastService.ShowSuccess("Materiaal is toegevoegd", "Success");
-	        }
+            await MaterialService.CreateAsync(material);
+            toastService.ShowSuccess("Materiaal is toegevoegd!");
+            NavigationManager.NavigateTo("/");
         }
     }
 }

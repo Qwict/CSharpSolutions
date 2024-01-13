@@ -24,9 +24,6 @@ namespace Server
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // Fluentvalidation
-            services.AddValidatorsFromAssemblyContaining<MaterialDto.Create.Validator>();
-            
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("SqlDatabase"));
@@ -34,6 +31,8 @@ namespace Server
                 options.EnableSensitiveDataLogging();
             });
 
+            services.AddValidatorsFromAssemblyContaining<MaterialDto.Create.Validator>();
+            services.AddFluentValidationAutoValidation();
             services.AddScoped<IMaterialService, MaterialService>();
 
             services.AddControllersWithViews();

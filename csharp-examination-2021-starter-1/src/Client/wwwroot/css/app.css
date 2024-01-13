@@ -2,9 +2,7 @@
     outline: 1px solid #26b050;
 }
 
-.blazored-toast-container {
-    z-index: 35;
-}
+
 
 .invalid {
     outline: 1px solid red;

@@ -18,8 +18,8 @@ namespace Client
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
-            builder.Services.AddBlazoredToast();
             builder.Services.AddAuthorizationCore();
+            builder.Services.AddBlazoredToast();
             builder.Services.AddScoped<AuthenticationStateProvider, FakeAuthenticationProvider>();
             builder.Services.AddScoped<IMaterialService, MaterialService>();
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
