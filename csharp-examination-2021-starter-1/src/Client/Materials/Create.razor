@@ -1,0 +1,31 @@
+﻿@page "/material/create"
+@attribute [Authorize(Roles = "Administrator")]
+
+<h1 class="title">Materials <small>Create</small></h1>
+<EditForm Model="@_new" OnValidSubmit="@SubmitForm" Context="editFormContext">
+    <FluentValidationValidator />
+    <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+            @* TODO: Vraag 6 *@
+            <InputText @bind-Value="_new.Name" class="input"/>
+            <ValidationMessage For="() => _new.Name"/>
+            @* <input class="input" /> *@
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label">Description</label>
+        <div class="control">
+            @* TODO: Vraag 6 *@
+            <InputTextArea @bind-Value="_new.Description" class="input"/>
+            <ValidationMessage For="() => _new.Description" />
+            @* <textarea rows="5" class="textarea"></textarea> *@
+        </div>
+    </div>
+    
+    <div class="buttons">
+        <button class="button is-link is-fullwidth" type="submit">Create</button>
+        <a href="/" class="button is-link is-light is-fullwidth">Cancel</a>
+    </div>
+</EditForm>
