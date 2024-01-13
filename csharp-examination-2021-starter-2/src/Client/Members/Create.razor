@@ -1,0 +1,78 @@
+﻿@page "/member/create"
+@using Microsoft.AspNetCore.Authorization
+@* TODO vraag 4 *@
+@attribute [Authorize(Roles = "Administrator")]
+
+<h3 class="title">
+    Add member
+</h3>
+
+<EditForm Model="@_member" OnValidSubmit="@CreateMemberAsync" Context="editFormContext">
+    <FluentValidationValidator />
+    <div class="columns">
+        <div class="column">
+            <div class="field">
+                <label class="label">First name</label>
+                <div class="control">
+                    <InputText @bind-Value="_member.FirstName" class="input"/>
+                    <ValidationMessage For="() => _member.FirstName" />
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                <label class="label">Last name</label>
+                <div class="control">
+                    <InputText @bind-Value="_member.LastName" class="input"/>
+                    <ValidationMessage For="() => _member.LastName" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="columns">
+        <div class="column">
+            <div class="field">
+                <label class="label">Email</label>
+                <div class="control">
+                    <InputText @bind-Value="_member.Email" class="input"/>
+                    <ValidationMessage For="() => _member.Email" />
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="field">
+                <label class="label">Twitter</label>
+                <div class="control">
+                    <InputText @bind-Value="_member.TwitterHandle" class="input"/>
+                    <ValidationMessage For="() => _member.TwitterHandle" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="columns">
+        <div class="column is-half">
+            <div class="field">
+                <label class="label">Group</label>
+                <div class="control is-expanded">
+                    <div class="select is-fullwidth">
+                        <InputSelect @bind-Value="_member.GroupId">
+                            <option disabled selected value="0">-- Select a group --</option>
+                            @foreach (var group in groups)
+                            {
+                                <option value="@group.Id">@group.Name</option>
+                            }
+                        </InputSelect>
+                        <ValidationMessage For="() => _member.GroupId" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button class="button is-link is-fullwidth" type="submit">Add</button>
+        <a href="/" class="button is-link is-light is-fullwidth">Cancel</a>
+    </div>
+</EditForm>

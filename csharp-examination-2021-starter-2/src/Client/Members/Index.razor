@@ -1,0 +1,49 @@
+﻿@page "/"
+
+<h1 class="title">Members</h1>
+
+@if (members is null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="content">
+        <div class="field has-addons">
+            <div class="control is-expanded">
+                <input class="input is-fullwidth" @bind="_search" type="text" placeholder="Search a member" />
+            </div>
+            <div class="control">
+                <button onclick="@SearchMembersAsync" class="button is-info">
+                    Search
+                </button>
+            </div>
+            @* TODO: antwoord vraag 4 *@
+            <AuthorizeView Roles="Administrator">
+                <Authorized>
+                <div class="control">
+                    <a href="/member/create" class="button is-primary">
+                        Create
+                    </a>
+                </div>
+                </Authorized>
+            </AuthorizeView>
+        </div>
+
+        <table class="table is-striped is-fullwidth">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Twitter</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var member in members)
+            {
+                <MemberListItem Member="member" />
+            }
+            </tbody>
+        </table>
+    </div>
+}
