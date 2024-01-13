@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 using Shared.Members;
 using System.Linq;
 using System;
+using System.IO;
+using System.Text;
+using System.Text.Json;
 
 namespace Client.Members
 {
@@ -11,12 +14,37 @@ namespace Client.Members
     {
         [Inject] public IMemberService MemberService { get; set; }
         [Inject] public NavigationManager NavigationManager { get; set; }
+        [Inject] public Blazored.LocalStorage.ISyncLocalStorageService LocalStorage { get; set; }
 
         private List<MemberDto.Index> allMembers;
         private List<MemberDto.Index> filteredMembers;
         protected override async Task OnInitializedAsync()
         {
-            await GetMembersAsync();
+            // TODO: Vraag 7: localstorage
+            var members = LocalStorage.GetItemAsString("members");
+            if (!string.IsNullOrEmpty(members))
+            {
+                try
+                {
+                    // allMembers = System.Text.Json.JsonSerializer.Deserialize<List<MemberDto.Index>>(members);
+                    allMembers = await JsonSerializer.DeserializeAsync<List<MemberDto.Index>>(
+                        new MemoryStream(Encoding.UTF8.GetBytes(members)),
+                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+                    );
+                    filteredMembers = allMembers;
+                    Console.WriteLine($"Deserialized Members: {string.Join(", ", allMembers.Select(m => m.Name))}");
+                } catch (Exception e)
+                {
+                    Console.WriteLine($"Error deserializing members: {e.Message}");
+                    await GetMembersAsync();
+                    LocalStorage.SetItem("members", JsonSerializer.Serialize(allMembers));
+                }
+            }
+            else
+            {
+                await GetMembersAsync();
+                LocalStorage.SetItem("members", JsonSerializer.Serialize(allMembers));
+            }
         }
 
         private async Task GetMembersAsync()
