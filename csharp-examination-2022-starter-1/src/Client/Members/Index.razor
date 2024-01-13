@@ -12,7 +12,8 @@ else
         <div class="field-body">
             <div class="field">
                 <div class="control is-expanded">
-                    <input class="input is-fullwidth" type="search" placeholder="Search..." />
+                    @* TODO: Vraag 5 local filter *@
+                    <input class="input is-fullwidth" @bind="@_searchTerm" @oninput="SearchMembers" type="search" placeholder="Search..."/>
                 </div>
             </div>
 
