@@ -1,0 +1,48 @@
+﻿@page "/"
+
+<h1 class="title">Members</h1>
+
+@if (filteredMembers is null)
+    {
+    <p>Loading...</p>
+}
+else
+{
+    <div class="field is-horizontal">
+        <div class="field-body">
+            <div class="field">
+                <div class="control is-expanded">
+                    <input class="input is-fullwidth" type="search" placeholder="Search..." />
+                </div>
+            </div>
+
+            <div class="control">
+                <a href="/member/create" class="button is-primary">
+                    Add
+                </a>
+            </div>
+        </div>
+    </div>
+    <table class="table is-striped is-fullwidth">
+        <thead>
+            <tr>
+                <th>Naam</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var member in filteredMembers)
+                {
+                <tr>
+                    <td>@member.Name</td>
+                    <td><a href="mailto:@member.Email">@member.Email</a></td>
+                    <td><a href="tel:@member.Phone">@member.Phone</a></td>
+                    <td><button @onclick="@(_ => NavigateToDetail(member.Id))" class="button is-link is-light">Detail</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
