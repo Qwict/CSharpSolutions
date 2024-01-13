@@ -16,11 +16,16 @@ else
                 </div>
             </div>
 
-            <div class="control">
-                <a href="/member/create" class="button is-primary">
-                    Add
-                </a>
-            </div>
+            @* TODO: vraag 4 authorisation hide button *@
+            <AuthorizeView Roles="Administrator">
+                <Authorized>
+                        <div class="control">
+                            <a href="/member/create" class="button is-primary">
+                                Add
+                            </a>
+                        </div>
+                </Authorized>
+            </AuthorizeView>
         </div>
     </div>
     <table class="table is-striped is-fullwidth">

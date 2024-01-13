@@ -17,9 +17,9 @@ namespace Domain.Members
 
         public Phonenumber(string value)
         {
-            Value = value;
+            // TODO: vraag 2b Guard against null or whitespace 
+            Value = Guard.Against.NullOrWhiteSpace(value.Replace(" ", ""));
         }
-
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return Value.ToLowerInvariant();

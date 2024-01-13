@@ -34,7 +34,12 @@ namespace Domain.Members
 
         public void AddSubscription(DateTime startsAt)
         {
-            throw new NotImplementedException();
+            // TODO: vraag 1: Domein (mag geen dubbels hebben)
+            var subscription = new Subscription(startsAt);
+            if (!HasOverlappingSubscriptions(startsAt)) 
+                _subscriptions.Add(subscription);
+            else 
+                throw new ApplicationException("Overlapping subscription");
         }
 
         private bool HasOverlappingSubscriptions(DateTime startsAt)

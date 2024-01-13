@@ -10,7 +10,9 @@ namespace UnitTests.Members
         [Fact]
         public void Be_stripped_of_spaces()
         {
-            throw new NotImplementedException();
+            // TODO: vraag 2a unit test schrijven
+            var phoneNumber = new Phonenumber("0476 123 456");
+            phoneNumber.Value.ShouldBe("0476123456");
         }
     }
 }
