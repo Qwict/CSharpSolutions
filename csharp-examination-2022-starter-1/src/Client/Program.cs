@@ -1,5 +1,4 @@
 using Client.Auth;
-using Client.Homes;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Shared.Members;
 using Blazored.LocalStorage;
+using Client.Members;
 
 namespace Client
 {

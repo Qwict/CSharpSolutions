@@ -5,7 +5,7 @@ using System.Net.Http.Json;
 using Shared.Members;
 using Blazored.LocalStorage;
 
-namespace Client.Homes
+namespace Client.Members
 {
     public class MemberService : IMemberService
     {

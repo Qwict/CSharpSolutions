@@ -31,8 +31,11 @@ namespace Server
                 options.EnableSensitiveDataLogging();
             });
 
+            // TODO: Vraag 6 Create, validator service toevoegen
+            // CHOSE between auto validation or validation from DTO
+            // services.AddFluentValidationAutoValidation();
             services.AddValidatorsFromAssemblyContaining<MaterialDto.Create.Validator>();
-            services.AddFluentValidationAutoValidation();
+            
             services.AddScoped<IMaterialService, MaterialService>();
 
             services.AddControllersWithViews();

@@ -33,6 +33,10 @@ builder.Services.AddScoped<IMemberService, MemberService>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
+// TODO: Vraag 6 Create, validator service toevoegen
+// builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<MemberRequest.Create.Validator>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

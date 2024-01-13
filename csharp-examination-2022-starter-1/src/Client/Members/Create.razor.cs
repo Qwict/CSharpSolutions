@@ -8,10 +8,15 @@ namespace Client.Members
     public partial class Create
     {
         private MemberRequest.Create model { get; set; } = new();
+        
+        // TODO: Vraag 6 Create
+        [Inject] public IMemberService Service { get; set; }
+        [Inject] public NavigationManager NavigationManager { get; set; }
 
-        private Task CreateMemberAsync()
+        private async Task CreateMemberAsync()
         {
-            throw new NotImplementedException();
+            await Service.CreateAsync(model);
+            NavigationManager.NavigateTo("/");
         }
     }
 }

@@ -5,54 +5,75 @@
 <h3 class="title">
     Add Member
 </h3>
+
+@* TODO: Vraag 6 Create *@
+<EditForm Model="@model" Context="editFormContext" OnValidSubmit="@CreateMemberAsync">
+    <FluentValidationValidator />
     <div class="columns">
         <div class="column">
             <div class="field">
                 <label class="label">Gender</label>
                 <div class="select is-fullwidth">
-                    <select>
+                    @* TODO: Vraag 6 Create *@
+                    <InputSelect @bind-Value="model.Gender" >
                         <option>Male</option>
                         <option>Female</option>
                         <option>Other</option>
-                    </select>
+                    </InputSelect>
+                    <ValidationMessage For="() => model.Gender"/>
                 </div>
             </div>
 
             <div class="field">
                 <label class="label">Firstname</label>
                 <div class="control">
-                    <input class="input"/>
+                    @* TODO: Vraag 6 Create *@
+                    <InputText @bind-Value="model.Firstname" class="input"></InputText>
+                    <ValidationMessage For="() => model.Firstname"/>
+                    @* <input class="input"/> *@
                 </div>
             </div>
 
             <div class="field">
                 <label class="label">Lastname</label>
                 <div class="control">
-                    <input class="input" />
+                    @* TODO: Vraag 6 Create *@
+                    <InputText @bind-Value="model.Lastname" class="input"></InputText>
+                    <ValidationMessage For="() => model.Lastname"/>
+                    @* <input class="input" /> *@
                 </div>
             </div>
         </div>
-        <div class="column">
-            <div class="field">
-                <label class="label">Date of birth</label>
-                <div class="control">
-                    <input class="input" />
+            <div class="column">
+                <div class="field">
+                    <label class="label">Date of birth</label>
+                    <div class="control">
+                        @* TODO: Vraag 6 Create *@
+                        <InputDate @bind-Value="model.DateOfBirth" class="input"></InputDate>
+                        <ValidationMessage For="() => model.DateOfBirth"/>
+                        @* <input class="input"/> *@
+                    </div>
                 </div>
-            </div>
-            <div class="field">
-                <label class="label">Email</label>
-                <div class="control">
-                    <input class="input" />
+                <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control">
+                        @* TODO: Vraag 6 Create *@
+                        <InputText @bind-Value="model.Email" class="input"></InputText>
+                        <ValidationMessage For="() => model.Email"/>
+                        @* <input class="input"/> *@
+                    </div>
                 </div>
-            </div>
 
-            <div class="field">
-                <label class="label">Phone</label>
-                <div class="control">
-                    <input class="input" />
+                <div class="field">
+                    <label class="label">Phone</label>
+                    <div class="control">
+                        @* TODO: Vraag 6 Create *@
+                        <InputText @bind-Value="model.Phone" class="input"></InputText>
+                        <ValidationMessage For="() => model.Phone"/>
+                        @* <input class="input"/> *@
+                    </div>
                 </div>
             </div>
-        </div>
     </div>
 
 
@@ -70,3 +91,5 @@
             </a>
         </div>
     </div>
+@* TODO: Vraag 6 Create *@
+</EditForm>

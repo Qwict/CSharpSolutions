@@ -2,11 +2,13 @@
 @attribute [Authorize(Roles = "Administrator")]
 <h1 class="title">Materials <small>Create</small></h1>
 
+@* TODO: Vraag 6 Create *@
 <EditForm Model="@material" Context="editFormContext" OnSubmit="@SubmitForm">
     <FluentValidationValidator />
     <div class="field">
         <label class="label">Name</label>
         <div class="control">
+            @* TODO: Vraag 6 Create *@
             <InputText @bind-Value="material.Name" class="input"></InputText>
             <ValidationMessage For="() => material.Name"/>
         </div>
@@ -15,6 +17,7 @@
     <div class="field">
         <label class="label">Description</label>
         <div class="control">
+            @* TODO: Vraag 6 Create *@
             <InputTextArea @bind-Value="material.Description" class="textarea"></InputTextArea>
              <ValidationMessage For="() => material.Description"/>
         </div>

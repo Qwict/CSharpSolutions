@@ -18,11 +18,19 @@ namespace Shared.Members
             public string? Email { get; set; }
             public string? Phone { get; set; }
 
-            public class Validator :AbstractValidator<Create>
+            // TODO: Vraag 6 Create
+            public class Validator: AbstractValidator<Create>
             {
                 public Validator()
                 {
-                    // Implement
+                    RuleFor(x => x.Firstname).NotEmpty();
+                    RuleFor(x => x.Lastname).NotEmpty();
+                    RuleFor(x => x.DateOfBirth).NotEmpty();
+                    RuleFor(x => x.Gender).NotEmpty();
+                    // I think this is optional??? but I don't understand this exam... it will throw if not done: protect API?
+                    RuleFor(x => x.Email).NotEmpty().Matches("^(\\S+)@(\\S+)$").WithMessage("Email Address is not valid.").MaximumLength(200);
+                    RuleFor(x => x.Phone).NotEmpty().MaximumLength(100);
+                    
                 }
             }
         }

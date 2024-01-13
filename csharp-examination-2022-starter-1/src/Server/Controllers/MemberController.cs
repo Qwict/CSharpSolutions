@@ -21,6 +21,13 @@ namespace Server.Controllers
             return memberService.GetIndexAsync(new MemberRequest.GetIndex());
         }
 
+        //
+        [HttpPost]
+        public Task<MemberResponse.Create> CreateAsync([FromBody] MemberRequest.Create request)
+        {
+            Console.WriteLine(request);
+            return memberService.CreateAsync(request);
+        }
     }
 }
 
