@@ -7,6 +7,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Text.Json;
+using Blazored.LocalStorage;
 
 namespace Client.Members
 {
@@ -14,43 +15,41 @@ namespace Client.Members
     {
         [Inject] public IMemberService MemberService { get; set; }
         [Inject] public NavigationManager NavigationManager { get; set; }
-        [Inject] public Blazored.LocalStorage.ISyncLocalStorageService LocalStorage { get; set; }
+        
+        // TODO: Vraag 7: localstorage
+        // Best localstorage (only works in wasm)
+        [Inject] public ILocalStorageService LocalStorage { get; set; }
+        // Slower async localstorage
+        [Inject] public ISyncLocalStorageService LocalSyncStorage { get; set; }
 
         private List<MemberDto.Index> allMembers;
         private List<MemberDto.Index> filteredMembers;
         protected override async Task OnInitializedAsync()
         {
             // TODO: Vraag 7: localstorage
-            var members = LocalStorage.GetItemAsString("members");
-            if (!string.IsNullOrEmpty(members))
+            var members = LocalSyncStorage.GetItem<List<MemberDto.Index>>("members");
+            // var members = await LocalStorage.GetItemAsync<List<MemberDto.Index>>("members");
+            if (members == null)
             {
-                try
-                {
-                    // allMembers = System.Text.Json.JsonSerializer.Deserialize<List<MemberDto.Index>>(members);
-                    allMembers = await JsonSerializer.DeserializeAsync<List<MemberDto.Index>>(
-                        new MemoryStream(Encoding.UTF8.GetBytes(members)),
-                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
-                    );
-                    filteredMembers = allMembers;
-                    Console.WriteLine($"Deserialized Members: {string.Join(", ", allMembers.Select(m => m.Name))}");
-                } catch (Exception e)
-                {
-                    Console.WriteLine($"Error deserializing members: {e.Message}");
-                    await GetMembersAsync();
-                    LocalStorage.SetItem("members", JsonSerializer.Serialize(allMembers));
-                }
+                await GetMembersAsync();
             }
             else
             {
-                await GetMembersAsync();
-                LocalStorage.SetItem("members", JsonSerializer.Serialize(allMembers));
+                allMembers = members;
+                filteredMembers = allMembers;
             }
         }
 
         private async Task GetMembersAsync()
         {
             var response = await MemberService.GetIndexAsync(null);
-            allMembers = response.Members;
+            var members = response.Members.OrderBy(x => x.Name).ToList();
+            
+            // TODO: Vraag 7: localstorage
+            LocalSyncStorage.SetItem("members", members);
+            // LocalStorage.SetItemAsync("members", members);
+            
+            allMembers = members;
             filteredMembers = allMembers;
         }
 
