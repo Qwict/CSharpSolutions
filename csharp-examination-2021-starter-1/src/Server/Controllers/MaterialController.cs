@@ -24,6 +24,7 @@ namespace Server.Controllers
             return materialService.GetIndexAsync(search);
         }
 
+        // TODO: vraag 6 create: post route aanmaken (vb exam never had it?!)
         [HttpPost]
         public Task<int> CreateAsync([FromBody] MaterialDto.Create material)
         {

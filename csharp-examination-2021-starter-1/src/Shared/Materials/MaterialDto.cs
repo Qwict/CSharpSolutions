@@ -18,6 +18,7 @@ namespace Shared.Materials
             public string Name { get; set; }
             public string Description { get; set; }
             
+            // TODO: Create -> add validation to dto to make fluent validation work
             public class Validator: AbstractValidator<Create>
             {
                 public Validator()

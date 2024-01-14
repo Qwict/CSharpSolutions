@@ -26,12 +26,15 @@ namespace Domain.Materials
 
         public void Borrow(string student)
         {
+            // TODO: vraag 2: Guard clause, mighe not be usefull because student Event already protected
             var events = new Event(Guard.Against.NullOrWhiteSpace(student, nameof(student)), Event.ActionType.Borrow);
             if (OutOfStock)
             {
                 throw new ApplicationException("Already borrowed");
             }
             InStock = false;
+            
+            // TODO: vraag 1b
             history.Add(events);
         }
     }

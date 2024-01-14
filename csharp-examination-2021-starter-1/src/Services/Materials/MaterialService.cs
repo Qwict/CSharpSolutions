@@ -29,29 +29,30 @@ namespace Services.Materials
         public async Task<IEnumerable<MaterialDto.Index>> GetIndexAsync(string searchTerm)
         {
             // TODO: Antwoord 5: Filter
-            if (string.IsNullOrWhiteSpace(searchTerm))
+            var materials = new List<MaterialDto.Index>();
+            if (string.IsNullOrEmpty(searchTerm))
             {
-                var materials =  await dbContext.Materials.Select(x => new MaterialDto.Index
+                materials =  await dbContext.Materials.Select(x => new MaterialDto.Index
                 {
                     Id = x.Id,
                     Name = x.Name,
                     Description = x.Description,
                     InStock = x.InStock
-                }).OrderBy(x => x.Name).ToListAsync();
-
-                return materials;
+                }).ToListAsync();
+            }
+            else
+            {
+                materials =  await dbContext.Materials.Select(x => new MaterialDto.Index
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    InStock = x.InStock
+                    // TODO: vraag 5 Filter to name die START met searchTerm of description die containse
+                }).Where(x => x.Name.StartsWith(searchTerm) || x.Description.Contains(searchTerm)).OrderBy(x => x.Name).ToListAsync();
             }
 
-            var query = dbContext.Materials.AsQueryable();
-            query = query.Where(x => x.Name.Contains(searchTerm) || x.Description.Contains(searchTerm));
-            var result  = await query.Select(x => new MaterialDto.Index
-            {
-                Id = x.Id,
-                Name = x.Name,
-                Description = x.Description,
-                InStock = x.InStock
-            }).OrderBy(x => x.Name).ToListAsync();
-            return result;
+            return materials;
             
         }
     }

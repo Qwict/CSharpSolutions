@@ -51,8 +51,8 @@ namespace UnitTests
         [InlineData("   ")]
         public void Not_Borrow_To_Invalid_Student(string studentCode)
         {
+            // TODO: vraag 2
             var m = new Material("name", "description");
-
             Should.Throw<ArgumentException>(() => m.Borrow(studentCode));
         }
     }

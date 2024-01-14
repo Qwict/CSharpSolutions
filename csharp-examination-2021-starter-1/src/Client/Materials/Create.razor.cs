@@ -8,16 +8,25 @@ namespace Client.Materials
 {
 	public partial class Create
     {
-        private MaterialDto.Create material = new();
+        // TODO vraag 6: create
+        private MaterialDto.Create _material = new();
         [Inject] public IMaterialService MaterialService { get; set; }
-        [Inject] public  IToastService toastService { get; set; }
         [Inject] public NavigationManager NavigationManager { get; set; }
         
+        // TODO vraag 8: notification
+        [Inject] public  IToastService ToastService { get; set; }
+        
+        // TODO vraag 6: create
         private async Task SubmitForm()
         {
-            await MaterialService.CreateAsync(material);
-            toastService.ShowSuccess("Materiaal is toegevoegd!");
-            NavigationManager.NavigateTo("/");
+            var response = await MaterialService.CreateAsync(_material);
+            // TODO vraag 8: notification
+            if (response > 0)
+            {
+                ToastService.ShowSuccess("Materiaal is toegevoegd!");
+                NavigationManager.NavigateTo("/");
+            }
+
         }
     }
 }

@@ -3,17 +3,20 @@
 <div class="is-flex is-flex-direction-row-reverse">
     <div class="field has-addons">
         <div class="control">
-            <input class="input is-one-third" @bind="_search" type="text" placeholder="Search...">
+            @* TODO: vraag 5 filter bind de search to input field *@
+            <input class="input is-one-third" @bind="_searchTerm" type="text" placeholder="Search...">
         </div>
         <div class="control">
-            <button class="button is-info" @onclick="FilterMaterials">Search</button>
+            @* TODO: vraag 5 filter on click filter function vervang met FilterMaterials indien header param*@
+            <button class="button is-info" @onclick="GetMaterialsAsync">Search</button>
         </div>
+        @* TODO: vraag 4 authorisation *@
         <AuthorizeView Roles="Administrator">
-            <Authorized>
+            @* <Authorized> *@
             <div class="control">
                 <a class="button is-primary" href="material/create">Create</a>
             </div>
-            </Authorized>
+            @* </Authorized> *@
         </AuthorizeView>
     </div>
 </div>
